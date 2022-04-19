@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@1,700&family=Khula&family=Rubik:ital,wght@1,300&display=swap');
+/** Fonts
+ * font-family: 'Rubik',        sans-serif;   Biggest
+ * font-family: 'Josefin Slab', serif;        Normal
+ * font-family: 'Khula',        sans-serif;   Smallest
+*/
+
+:root {
+  --c-light:       hsl(120, 2%, 80%);  /* cbcdcb */
+  --c-lighter:     hsl(60, 10%, 90%);  /* e8e8e3 */
+  --c-dark:        hsl(195, 5%, 46%);  /* 6f787b */
+  --c-darker:      hsl(193, 6%, 32%);  /* 4d5456 */
+  --c-accent-red:  hsl(358, 51%, 53%); /* c44a4e */
+  --c-accent-blue: hsl(194, 17%, 45%); /* 5f7d86 */
+
+  /** WCAG for colours
+   *_Foreground_|_Background______________________________
+   * light      | darker 3/4
+   * lighter    | darker 3/4, dark 1/4, red 1/4, blue 1/4
+   * dark       | lighter 1/4
+   * darker     | light 3/4, lighter 3/4
+   * red        | lighter 1/4
+   * blue       | lighter 1/4
+   *_Background_|_Foreground______________________________
+   * light      | darker 3/4
+   * lighter    | dark 1/4, darker 3/4, red 1/4, blue 1/4
+   * dark       | lighter 1/4
+   * darker     | light 3/4, lighter 3/4
+   * red        | lighter 1/4
+   * blue       | lighter 1/4
+  */
+}
+
+html { font-size: 62.5% } /* For easy rem/em use */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+body {
+  font-size: 2rem;
+  font-family: 'Khula', Arial, Helvetica, sans-serif;
+  background-color: var(--c-light);
+  color: var(--c-darker);
+}
+
+#root {
+  max-width: 125rem;
+  min-height: 90vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: repeat(2, max-content) 1fr;
+  grid-template-areas: 
+    'header     header'
+    'today-date actions'
+    'list       list'
+    'footer     footer';
+  justify-items: center;
+  column-gap: 6rem;
+  background-color: var(--c-lighter);
+  border-radius: 2rem;
+  box-shadow: 1rem 1rem rgb(0 0 0 / .15);
+  transform: translateY(3%);
+}
+
+
+
+header {
+  grid-area: header;
+  width: 100%;
+  padding: 4rem 6rem 3rem 6rem;
+  margin-bottom: 4rem;
+  background-color: var(--c-dark);
+  color: var(--c-lighter);
+  text-align: center;
+  border-radius: 2rem 2rem 0 0;
+}
+
+
+
+.today-date {
+  grid-area: today-date;
+  margin: 0 0 2.5rem 6rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  border-bottom: .3rem solid var(--c-darker);
+}
+
+.today-date *:first-child, .today-date *:last-child { 
+  width: max-content;
+  text-align: left 
+}
+
+.today-date *:last-child {
+  margin-left: 70%;
+}
+
+
+
+.actions {
+  grid-area: actions;
+  margin: 0 6rem 2.5rem 0;
+  padding-bottom: 1rem;
+  width: calc(100% - 6rem);
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  border-bottom: .3rem solid var(--c-darker);
+}
+
+
+
+.list {
+  grid-area: list;
+  list-style-type: none;
+}
+
+.list .task {
+  margin-top: 1.3em;
+  padding: .2em 2em;
+  background-color: transparent;
+  text-align: center;
+  border-top: .1em solid var(--c-darker);
+  cursor: pointer;
+}
+
+.list .selected-task {
+  background-color: var(--c-light);
+}
+
+.list .task div {
+  margin: 2rem 0 1rem 0;
+  display: flex;
+  justify-content: space-evenly;
+  gap: .2em;
+}
+
+
+
+.footer {
+  grid-area: footer;
+  padding: .4em .8em;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.footer a {
+  color: inherit;
+}
+
+
+
+.form-task {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 2em;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 2rem;
+  background-color: var(--c-lighter);
+  color: var(--c-darker);
+  text-align: center;
+  border-radius: 2rem;
+  box-shadow: .8rem .8rem rgb(0 0 0 / .35);
+  transform: translate(-50%, -50%);
+}
+
+.form-quit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: max-content;
+  height: max-content;
+  margin: 1em;
+  display: grid;
+  place-items: center;
+  color: var(--c-darker);
+  background-color: transparent;
+  border: none;
+  transform: scale(1.6, 1.6);
+  cursor: pointer;
+  transition: all .2s linear;
+  transition-property: color;
+}
+
+.form-quit:hover {
+  color: var(--c-accent-red);
+}
+
+.form-input {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.form-input:last-child {
+  grid-template-columns: 3fr 2fr 4fr;
+}
+
+.form-input label {
+  height: max-content;
+  padding-right: 1em;
+  text-align: right;
+}
+
+.form-input input[type="checkbox"] {
+  align-self: center;
+  transform: translateY(-25%);
+}
+
+
+.ff-rubik {
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.ff-josefin {
+  font-family: 'Josefin Slab', 'Times New Roman', Times, serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.ff-khula {
+  font-family: 'Khula', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fs-tiny {
+  font-size: 1.8rem;
+}
+
+.fs-smaller {
+  font-size: 2.4rem;
+}
+
+.fs-small {
+  font-size: 3.2rem;
+}
+
+.fs-medium {
+  font-size: 4.0rem;
+}
+
+.fs-big {
+  font-size: 4.8rem;
+}
+
+.fs-bigger {
+  font-size: 5.6rem;
+}
+
+.fs-huge {
+  font-size: 6.4rem;
+}
+
+.btn {
+  padding: .4em 1em;
+  border: none;
+  border-radius: .3em;
+  cursor: pointer;
+}
+
+.btn-dark {
+  background-color: var(--c-darker);
+  color: var(--c-lighter);
+}
+
+.btn-light {
+  background-color: var(--c-lighter);
+  color: var(--c-darker);
+}
+
+.btn-confirm {
+  background-color: var(--c-accent-blue);
+  color: var(--c-lighter);
+}
+
+.btn-decline {
+  background-color: var(--c-accent-red);
+  color: var(--c-lighter);
+}
+
+.btn-border-dark {
+  border: .1em solid var(--c-dark);
+}
+
+.btn-border-light {
+  border: .1em solid var(--c-light);
+}
+
+.fa-icon-light {
+  color: var(--c-lighter);
+}
+
+.fa-icon-dark {
+  color: var(--c-darker);
+}
+
+.fa-icon-red {
+  color: var(--c-accent-red);
+}
+
+.fa-icon-blue {
+  color: var(--c-accent-blue);
+}
+
+button .fa-icon {
+  margin-right: .3em;
+  transform: translateY(.1em);
+}
